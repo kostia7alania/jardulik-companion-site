@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = 'https://kostia7alania.github.io/jardulik-companion-site/'
+BASE = 'https://kostia7alania.ru/jardulik-companion-site/'
 
 
 class Page(HTMLParser):

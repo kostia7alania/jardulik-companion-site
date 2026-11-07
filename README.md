@@ -25,9 +25,9 @@ The only real Telegram bot URL is the `data-bot-target` anchor in `bot.html`. It
 
 ## Public release
 
-Expected Pages base: `https://kostia7alania.github.io/jardulik-companion-site/`.
+Live Pages base: `https://kostia7alania.ru/jardulik-companion-site/`.
 
-All assets use project-compatible paths. `.nojekyll` avoids a Jekyll build. Enable GitHub Pages from `main:/` after review and the first push. The repository contains no deploy credentials, profile exports, real people, analytics identifiers or backend source.
+The project inherits the account-level custom domain from GitHub Pages. Its github.io address redirects to the live URL above. All assets use project-compatible paths. `.nojekyll` avoids a Jekyll build; Pages serves `main:/`. Do not change account DNS or the user-site Pages configuration for this project. The repository contains no deploy credentials, profile exports, real people, analytics identifiers or backend source.
 
 Before publication:
 
