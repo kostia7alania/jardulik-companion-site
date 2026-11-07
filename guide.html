@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f8fc">
+  <title>Как подключить Jardulik Companion через Telegram Web</title>
+  <meta name="description" content="Пошаговое подключение Jardulik Companion: открой Jardulik в Telegram Web, скопируй URL запуска из iframe и отправь /connect в личный чат бота.">
+  <link rel="canonical" href="https://kostia7alania.github.io/jardulik-companion-site/guide.html">
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="stylesheet" href="assets/site.css">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Jardulik Companion">
+  <meta property="og:title" content="Как подключить Jardulik Companion через Telegram Web">
+  <meta property="og:description" content="Ручное подключение своего аккаунта: полная ссылка запуска Jardulik и команда /connect в личном чате помощника.">
+  <meta property="og:url" content="https://kostia7alania.github.io/jardulik-companion-site/guide.html">
+  <meta property="og:image" content="https://kostia7alania.github.io/jardulik-companion-site/assets/social.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Jardulik Companion: анкеты и история в Telegram">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Как подключить Jardulik Companion через Telegram Web">
+  <meta name="twitter:description" content="Инструкция подключения своего аккаунта Jardulik без пароля, кода входа и полной Telegram-сессии.">
+  <meta name="twitter:image" content="https://kostia7alania.github.io/jardulik-companion-site/assets/social.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jardulik Companion","item":"https://kostia7alania.github.io/jardulik-companion-site/"},{"@type":"ListItem","position":2,"name":"Подключение через Telegram Web","item":"https://kostia7alania.github.io/jardulik-companion-site/guide.html"}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Перейти к содержимому</a>
+  <header class="site-header wrap"><a class="brand" href="./"><img src="assets/icon.svg" alt="" width="36" height="36"><span>Jardulik Companion</span></a><a class="text-link" href="./#connection">На главную</a></header>
+  <main class="prose-wrap prose">
+    <div class="document-header"><p class="section-mark">Подключение своего аккаунта</p><h1 id="content" tabindex="-1">Как подключить Jardulik Companion через Telegram Web</h1><p>Для первого подключения понадобится компьютер. После этого анкеты можно запрашивать в Telegram на телефоне.</p></div>
+    <p>В первой версии нужно один раз передать помощнику полную ссылку запуска Jardulik. Она содержит подписанные Telegram данные для входа в твой аккаунт Jardulik. Пароль Telegram, код входа и файлы Telegram-сессии помощнику не нужны.</p>
+    <div class="document-notice"><p><strong>Ссылка запуска является временным ключом доступа.</strong> Передавай её только командой <code>/connect</code> в личном чате нашего бота. На этом сайте нет формы для её отправки.</p></div>
+    <p>Перед подключением прочитай <a href="privacy.html">как обрабатываются данные</a>. Помощник сохраняет все анкеты, которые Jardulik вернул твоему аккаунту. Оператор имеет доступ к закрытому архиву для работы сервиса, модерации и резервного копирования.</p>
+
+    <ol class="guide-steps">
+      <li><h2>Открой Jardulik в Telegram Web</h2><p>На компьютере зайди в <a href="https://web.telegram.org/">официальный Telegram Web</a> под своим аккаунтом. Открой официальный <a href="https://t.me/jardulik_bot">@jardulik_bot</a> и запусти его мини-приложение.</p><p>Используй тот же Telegram-аккаунт, с которого будешь писать нашему помощнику. Если у тебя несколько аккаунтов, проверь выбранный аккаунт в Telegram Web и на телефоне.</p></li>
+      <li><h2>Найди iframe с мини-приложением</h2><p>Открой инструменты разработчика браузера. В Chrome и Edge это обычно <kbd>⌘</kbd> + <kbd>⌥</kbd> + <kbd>I</kbd> на Mac или <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> на Windows и Linux.</p><p>Перейди во вкладку <strong>Elements</strong> или <strong>Элементы</strong>. Во встроенном поиске этой вкладки найди <code>mini.jardulik.app</code>. Нужен элемент <code>iframe</code>, в атрибуте <code>src</code> которого находится адрес мини-приложения.</p><p>Для этого не нужно выполнять команды во вкладке Console. Не вставляй туда чужие скрипты и не отключай предупреждения или защиту браузера.</p></li>
+      <li><h2>Скопируй полный адрес из src</h2><p>Скопируй именно значение атрибута <code>src</code> целиком. Оно должно начинаться с <code>https://mini.jardulik.app/</code> и содержать параметр <code>tgWebAppData</code> во фрагменте после <code>#</code>.</p><p>Не копируй весь HTML-элемент <code>iframe</code>, наружные кавычки или только короткий адрес домена. Не сокращай ссылку, не меняй её поля и не декодируй её вручную. Не отправляй её в сторонние онлайн-декодеры.</p><p>Если полного адреса с <code>tgWebAppData</code> нет, остановись на этом шаге. Пока пользуйся официальным приложением или обратись к оператору через команду <code>/support</code>. В этой инструкции нет обхода защиты или альтернативных скриптов извлечения.</p></li>
+      <li><h2>Отправь ссылку в личный чат помощника</h2><p><a href="bot.html?source=guide_connect">Открой бота</a>, нажми <code>/start</code> и прочитай сообщение о подключении. Затем отправь <code>/connect</code> и полный адрес одним сообщением. Схема команды:</p><pre tabindex="0"><code>/connect &lt;полный URL запуска Jardulik&gt;</code></pre><p>Вместо текста в угловых скобках вставь свою полную ссылку. Отправляй её в личный чат помощника, а не в группу, комментарии, обращение в поддержку или публичный репозиторий.</p><p>После обработки бот запрашивает удаление сообщения со ссылкой, не сохраняя его текст в рабочей базе. Если сообщение осталось в чате, удали его сам. Это удаление не отменяет уже выданную Jardulik-сессию: ею можно управлять через <code>/disconnect</code>.</p></li>
+      <li><h2>Проверь подключение и открой первую анкету</h2><p>Дождись ответа о подключённом аккаунте. Команда <code>/status</code> показывает состояние сессии и аккаунта, а <code>/next</code> запрашивает следующую анкету.</p><p>Само подключение не запускает лайки. Остановка дальнейших действий доступна через <code>/pause</code>, отключение сессии через <code>/disconnect</code>. Для удаления личных данных из рабочей базы используй <code>/delete</code> и подтверди запрос.</p></li>
+    </ol>
+
+    <h2>Как бот проверяет ссылку</h2>
+    <ul><li><strong>Домен.</strong> Для полного URL принимается только HTTPS-адрес <code>mini.jardulik.app</code>. Похожее имя или другой домен не подходят.</li><li><strong>Подпись Telegram.</strong> Помощник проверяет подпись данных для официального бота Jardulik. Простая замена полей в ссылке нарушает подпись.</li><li><strong>Свежесть.</strong> Поле <code>auth_date</code> обозначает время выдачи данных запуска. Помощник проверяет возраст пакета и отклоняет устаревшие данные или время, заметно уходящее в будущее. Jardulik может завершить или отклонить сессию отдельно.</li><li><strong>Твой аккаунт.</strong> ID пользователя в подписанном пакете должен совпадать с Telegram ID отправителя команды, то есть <code>from.id</code>. Это проверяется автоматически. Ссылка другого аккаунта не подключится.</li></ul>
+    <p>Не нужно вручную менять дату или искать свой ID на сторонних сайтах. Если ссылка устарела, закрой мини-приложение и заново запусти Jardulik из официального бота, затем скопируй новый адрес.</p>
+
+    <h2>Если подключение не получилось</h2>
+    <dl class="guide-troubleshooting"><div><dt>Ссылка устарела</dt><dd>Заново открой Jardulik из официального бота и получи новый URL. Изменение даты в старой ссылке не продлит её действие.</dd></div><div><dt>Ссылка принадлежит другому аккаунту</dt><dd>Проверь, что Telegram Web и личный чат помощника открыты в одном Telegram-аккаунте. Не пересылай ссылку от другого человека.</dd></div><div><dt>Нет подписи или она не подтверждена</dt><dd>Повторно скопируй полный <code>src</code> без ручных изменений. Убедись, что запущен именно официальный Jardulik. Если ошибка повторяется, обратись к оператору.</dd></div><div><dt>Нужна дополнительная проверка или доступ отклонён</dt><dd>Пользуйся официальным приложением и следуй его обычным требованиям. Помощник приостанавливает работу; не нужно отключать защиту или многократно повторять запросы.</dd></div></dl>
+
+    <h2>Помощь и источник механизма входа</h2>
+    <p><code>/help</code> в боте показывает инструкцию и команды. Для обращения к оператору отправь <code>/support</code> и текст вопроса одним сообщением. Не включай в обращение саму ссылку запуска, токены, пароль или код входа.</p>
+    <p>Передача подписанного пакета <code>initData</code> является механизмом Telegram Mini Apps. Его устройство и проверка описаны в <a href="https://core.telegram.org/bots/webapps#validating-data-for-third-party-use">официальной документации Telegram</a>. Эта инструкция описывает ручное подключение независимого помощника, а не официальный OAuth-процесс Jardulik.</p>
+    <p><a href="privacy.html">Данные и приватность</a> · <a href="terms.html">Условия использования</a></p>
+    <a class="button guide-cta" href="bot.html?source=guide_connect">Открыть бота</a>
+  </main>
+  <footer class="site-footer wrap"><p>Jardulik Companion. Независимый проект.</p><nav aria-label="Документы"><a href="./">Главная</a><a href="privacy.html">Данные и приватность</a><a href="terms.html">Условия использования</a></nav></footer>
+</body>
+</html>
