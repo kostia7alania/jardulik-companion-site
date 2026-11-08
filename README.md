@@ -4,7 +4,7 @@ Public static landing for an independent Telegram companion to Jardulik. The app
 
 ## Design
 
-- Palette: cool paper `#f5f8fc`, ink `#243550`, deep blue `#264e7f`, ice `#e2edf8`, muted rose `#d28196`, slate `#566982`.
+- Palette: deep navy `#111b2c`, soft text `#e7eef8`, pale blue `#a4c8f5`, raised navy `#21354d`, muted rose `#e2a0b4`, slate `#a6b7cd`. The site defaults to dark, including browser-native controls, without adding a theme toggle.
 - Type: self-hosted variable Onest with its bundled SIL Open Font License.
 - Layout: a readable left-aligned product introduction beside a clearly fictional Telegram chat example; a folder/history illustration, a real three-step onboarding flow and native FAQ disclosures.
 - The strongest visual is the chat example. Supporting content uses varied prose/list structures rather than identical feature cards.
