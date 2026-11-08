@@ -9,6 +9,8 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = 'https://kostia7alania.ru/jardulik-companion-site/'
+CF_BEACON_URL = 'https://static.cloudflareinsights.com/beacon.min.js'
+CF_BEACON_TOKEN = 'b98944f04f57446ebf67627d710b7fa8'
 
 
 class Page(HTMLParser):
@@ -17,6 +19,7 @@ class Page(HTMLParser):
         self.headings = []
         self.links = []
         self.images = []
+        self.scripts = []
         self.ids = set()
         self.canonical = []
         self.description = []
@@ -48,6 +51,8 @@ class Page(HTMLParser):
                 self.links.append(attrs[name])
         if tag == 'img':
             self.images.append(attrs)
+        if tag == 'script':
+            self.scripts.append(attrs)
         if tag == 'script' and attrs.get('type') == 'application/ld+json':
             self.in_json = True
 
@@ -72,6 +77,13 @@ for path in sorted(ROOT.glob('*.html')):
     assert 'name="viewport"' in source, f'{path.name}: missing viewport'
     assert not re.search(r'tgWebAppData=|Bearer\s+[A-Za-z0-9]|\d{8,}:[A-Za-z0-9_-]{30,}', source), f'{path.name}: possible auth material'
     page.feed(source)
+    external_scripts = [attrs for attrs in page.scripts if urlsplit(attrs.get('src', '')).scheme or urlsplit(attrs.get('src', '')).netloc]
+    assert len(external_scripts) == 1, f'{path.name}: expected exactly one external analytics script'
+    beacon = external_scripts[0]
+    assert set(beacon) == {'type', 'src', 'fetchpriority', 'data-cf-beacon'}, f'{path.name}: unexpected beacon attributes'
+    assert beacon['src'] == CF_BEACON_URL, f'{path.name}: unapproved external script'
+    assert beacon['type'] == 'module' and beacon['fetchpriority'] == 'low', f'{path.name}: incorrect beacon loading mode'
+    assert json.loads(beacon['data-cf-beacon']) == {'token': CF_BEACON_TOKEN}, f'{path.name}: incorrect beacon token/configuration'
     assert page.title.strip(), f'{path.name}: missing title'
     assert page.headings.count(1) == 1, f'{path.name}: expected one H1'
     previous = 0
@@ -108,4 +120,4 @@ expected_locations = {BASE if name == 'index.html' else BASE + name for name, pa
 assert set(locations) == expected_locations, 'Sitemap does not match indexable pages'
 assert (ROOT / '.nojekyll').exists(), 'Missing .nojekyll'
 assert (ROOT / 'assets/fonts/OFL.txt').exists(), 'Missing font license'
-print(f'OK: {len(pages)} HTML pages, local links/anchors, metadata, JSON-LD, sitemap, asset boundaries')
+print(f'OK: {len(pages)} HTML pages, local links/anchors, metadata, JSON-LD, sitemap, asset boundaries, one approved Cloudflare beacon per page')

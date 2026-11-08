@@ -27,7 +27,7 @@ The only real Telegram bot URL is the `data-bot-target` anchor in `bot.html`. It
 
 Live Pages base: `https://kostia7alania.ru/jardulik-companion-site/`.
 
-The project inherits the account-level custom domain from GitHub Pages. Its github.io address redirects to the live URL above. All assets use project-compatible paths. `.nojekyll` avoids a Jekyll build; Pages serves `main:/`. Do not change account DNS or the user-site Pages configuration for this project. The repository contains no deploy credentials, profile exports, real people, analytics identifiers or backend source.
+The project inherits the account-level custom domain from GitHub Pages. Its github.io address redirects to the live URL above. All assets use project-compatible paths. `.nojekyll` avoids a Jekyll build; Pages serves `main:/`. Do not change account DNS or the user-site Pages configuration for this project. The repository contains no deploy credentials, profile exports, real people or backend source. The Cloudflare Web Analytics beacon token is intentionally public; it does not grant dashboard access.
 
 Before publication:
 
@@ -44,7 +44,11 @@ Primary intent: Jardulik profiles and archive/history in Telegram, not a separat
 
 `assets/social.svg` is the source-controlled share illustration. `assets/social.png` is its 1200 × 630 raster derivative for social crawlers, generated with `rsvg-convert -o assets/social.png assets/social.svg`. Both contain only product text and abstract shapes.
 
-No analytics cookies, external tracking scripts or contact forms are installed. A bot start attributed to `site` measures a bot entry, not a page view or unique website visitor.
+Cloudflare Web Analytics is installed once before `</body>` on each of the six HTML pages, using the exact official beacon URL and public property token. Manual JS installation is enabled for the property; automatic injection is disabled to avoid duplicate counting. The generated `type="module"` script uses `fetchpriority="low"` and does not block HTML parsing. No DNS or account-wide settings are managed by this repository.
+
+The counter measures site traffic and page performance. [Cloudflare describes its analytics](https://www.cloudflare.com/web-analytics/) as using no cookies, localStorage or individual fingerprints. We add no visitor IDs, custom events, Telegram account data or profile data, and do not connect the counter to bot sessions. Google Analytics, advertising trackers and contact forms are not installed. [Official manual installation instructions](https://developers.cloudflare.com/web-analytics/get-started/) explain the beacon setup.
+
+`scripts/check_site.py` requires exactly one approved beacon per page and rejects other external scripts or a changed token. Local checks confirm the installation markup; successful reporting still requires a live-browser Network check and the Cloudflare dashboard. Browser blockers or immediate navigation from `bot.html` may prevent a beacon from being sent. A bot start attributed to `site` measures a bot entry, not a page view or unique website visitor.
 
 ## Content limits
 
