@@ -73,3 +73,27 @@ The home-page SoftwareApplication and FAQPage JSON-LD describe the visible produ
 ## Content limits
 
 The demo profile, illustration and history are fictional. The site makes no claims of official affiliation, invisible automation, guaranteed account safety, matching success or one-click phone onboarding. Jardulik pricing/subscription remains separate. Backup deletion has no guaranteed automatic retention window in this beta.
+
+## API documentation
+
+Public Swagger reference: `https://kostia7alania.ru/jardulik-companion-site/swagger/`. Downloadable OpenAPI: `swagger/openapi.json`. The home-page footer links to it. It documents only observed Jardulik operations and distinguishes confirmed client behavior from unknown server rules. It contains no account exports, real profile examples or authentication material. This technical page is `noindex` and has no analytics.
+
+The public UI does not execute API requests: `supportedSubmitMethods: []`. The observed Jardulik CORS preflight does not allow this Pages origin. **Открыть мой клиент** navigates to `http://127.0.0.1:8788/`, the private owner backend UI reached through an SSH tunnel. The backend uses its current Jardulik session and configured headers; the browser does not need a Jardulik Bearer. A typical local tunnel is:
+
+```sh
+ssh -N -L 127.0.0.1:8788:127.0.0.1:8788 your-server
+```
+
+The owner backend must enable its loopback debug listener. That service and its configuration live in the private companion repository, not this public site. The public UI does not contact the private listener automatically.
+
+Swagger UI `5.34.1` is vendored from the official `swagger-ui-dist` npm package. `swagger/vendor/provenance.json` records the tarball integrity, per-file SHA-256, SRI values and byte sizes. Only the bundle, stylesheet and required license/notice files are included. Browser validation services, query-based configuration and authorization persistence are disabled; assets and the public schema load locally from this project. Private backend HTML loading these assets cross-origin must use the recorded SRI, anonymous CORS and no-referrer policy.
+
+Checks before publishing:
+
+```sh
+python3 scripts/check_site.py
+python3 scripts/check_swagger.py
+node --check swagger/swagger.js
+```
+
+UI acceptance should check a desktop and narrow mobile viewport, operation filtering, keyboard focus, schema expansion and the OpenAPI download. Private live requests are checked separately by the backend owner.
