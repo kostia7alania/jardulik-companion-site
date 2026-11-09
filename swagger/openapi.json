@@ -477,7 +477,7 @@
         ],
         "summary": "Доступные тарифы",
         "operationId": "getOrderTypes",
-        "description": "Чтение тарифов, не оформление покупки. Клиент получает недельный/месячный варианты с сервера; 50 или 60 Огонь в сутки не подтверждены.",
+        "description": "Чтение тарифов, не оформление покупки. В разовой выдаче 09.11.2026, 16:11 (пн, UTC+3) у SKU month указан fire=30, у week fire=7. Это параметры SKU, не ежедневная норма или подтверждённый график пополнения.",
         "responses": {
           "200": {
             "description": "Успешный ответ",
@@ -893,7 +893,7 @@
             "minimum": 1
           }
         },
-        "additionalProperties": true
+        "additionalProperties": false
       },
       "GPTResponse": {
         "type": "object",
@@ -954,7 +954,7 @@
             "example": ""
           }
         },
-        "additionalProperties": true
+        "additionalProperties": false
       },
       "ReactionResponse": {
         "type": "object",
@@ -991,20 +991,65 @@
         "description": "Клиент принимает следующие варианты ключей: IsSuccess/Success/success, IsMutual/Mutual/mutual, IsLast/Last/last, MessageKind/Kind/kind, HoursLeft/hoursLeft и MinutesLeft/minutesLeft. Здесь показаны первые ключи из нормализатора; конкретный регистр каждого живого ответа не установлен."
       },
       "OrderTypes": {
-        "description": "Тарифы приходят с сервера. Период, цена и fire динамические; схема полностью не подтверждена.",
-        "oneOf": [
-          {
-            "type": "object",
-            "additionalProperties": true
+        "type": "array",
+        "description": "Разовая выдача 09.11.2026, 16:11 (пн, UTC+3): четыре объекта. month: RUB 700 / STARS 400, fire=30, clean=30, period=1; week: RUB 500 / STARS 300, fire=7, clean=7, period=7. Цены и набор SKU могут измениться.",
+        "items": {
+          "$ref": "#/components/schemas/OrderType"
+        }
+      },
+      "OrderType": {
+        "type": "object",
+        "description": "Наблюдаемый объект тарифа. Полный набор возможных SKU и обязательность полей не установлены.",
+        "properties": {
+          "orderId": {
+            "type": "integer",
+            "format": "int64"
           },
-          {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "additionalProperties": true
-            }
+          "type": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "charId": {
+            "type": "string",
+            "description": "В наблюдаемой выдаче: month или week."
+          },
+          "currency": {
+            "type": "string",
+            "description": "В наблюдаемой выдаче: RUB или STARS."
+          },
+          "price": {
+            "type": "number"
+          },
+          "originalPrice": {
+            "type": "number",
+            "nullable": true
+          },
+          "discountPercent": {
+            "type": "number"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "fire": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Параметр SKU. Не устанавливает ежедневную норму или период пополнения баланса."
+          },
+          "period": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Сырое значение сервера: для month наблюдалось 1, для week 7. Универсальная единица измерения не установлена."
+          },
+          "clean": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createDate": {
+            "type": "string",
+            "description": "Серверная строка даты. Часовой пояс не установлен."
           }
-        ]
+        },
+        "additionalProperties": true
       }
     }
   },

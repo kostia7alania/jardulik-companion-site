@@ -49,9 +49,18 @@ schemas = spec['components']['schemas']
 assert schemas['ReactionRequest']['properties']['reactionType']['enum'] == [1, 2, 3, 4]
 assert 'UTF-16' in schemas['ReactionRequest']['properties']['message']['description']
 assert set(schemas['GPTRequest']['required']) == {'fromUserId', 'targetUserId'}
+assert schemas['GPTRequest']['additionalProperties'] is False
+assert set(schemas['GPTRequest']['properties']) == {'fromUserId', 'targetUserId'}
+assert schemas['ReactionRequest']['additionalProperties'] is False
+assert set(schemas['ReactionRequest']['properties']) == {'reactionType', 'isDeleted', 'userId', 'fromUserId', 'message'}
 assert set(schemas['GPTResponse']['properties']) == {'content', 'model'}
 assert 'format' not in schemas['Photo']['properties']['createDate']
 assert 'isMan' not in {p['name'] for p in spec['paths']['/user/getUsers']['get']['parameters']}
+assert schemas['OrderTypes']['type'] == 'array'
+assert schemas['OrderTypes']['items'] == {'$ref': '#/components/schemas/OrderType'}
+assert set(schemas['OrderType']['properties']) == {'orderId', 'type', 'charId', 'currency', 'price', 'originalPrice', 'discountPercent', 'isActive', 'fire', 'period', 'clean', 'createDate'}
+assert schemas['OrderType']['properties']['originalPrice']['nullable'] is True
+assert 'format' not in schemas['OrderType']['properties']['createDate']
 
 class HTML(HTMLParser):
     def __init__(self):
