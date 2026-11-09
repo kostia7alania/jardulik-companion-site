@@ -45,6 +45,10 @@ def walk(value):
         for child in value:
             walk(child)
 walk(spec)
+empty_profile = spec['paths']['/user/getUser']['get']['responses']['204']
+assert empty_profile == {'description': 'Нет содержимого анкеты.'}
+assert 'content' not in empty_profile
+assert all('204' not in item[method]['responses'] for path, item in spec['paths'].items() if path != '/user/getUser' for method in item)
 schemas = spec['components']['schemas']
 assert schemas['ReactionRequest']['properties']['reactionType']['enum'] == [1, 2, 3, 4]
 assert 'UTF-16' in schemas['ReactionRequest']['properties']['message']['description']
